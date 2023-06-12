@@ -7,7 +7,65 @@ namespace Authentication
 {
     public static class Features
     {
-        //
+        public static bool LoginUser(List<User> userList, List<Admin> adminList, string username, string password)
+        {
+            bool isLoggedIn = false;
+
+            foreach (User user in userList)
+            {
+                if (user.Username == username && user.Password == password)
+                {
+                    isLoggedIn = true;
+                    break;
+                }
+            }
+
+            if (!isLoggedIn)
+            {
+                foreach (Admin admin in adminList)
+                {
+                    if (admin.Username == username && admin.Password == password)
+                    {
+                        isLoggedIn = true;
+                        break;
+                    }
+                }
+            }
+
+            if (isLoggedIn)
+            {
+                Console.WriteLine("Login successful!");
+            }
+            else
+            {
+                Console.WriteLine("Invalid username or password. Please try again.");
+            }
+
+            return isLoggedIn;
+        }
+
+        public static int CheckAdminOrUser(List<User> userList, List<Admin> adminList, string username, string password)
+        {
+            User user = userList.Find(u => u.Username == username && u.Password == password);
+            Admin admin = adminList.Find(a => a.Username == username && a.Password == password);
+
+            if (user != null)
+            {
+                Console.WriteLine("Logged in as a regular user.");
+                return 1;
+            }
+            else if (admin != null)
+            {
+                Console.WriteLine("Logged in as an admin.");
+                return 2;
+            }
+            else
+            {
+                Console.WriteLine("Invalid username or password.");
+                return 0;
+            }
+        }
+
         public static void CreateUser(List<User> userList)
         {
             Console.WriteLine("\n");

@@ -34,5 +34,21 @@ namespace Authentication
             Console.WriteLine();
             return keyInfo.Key;
         }
+
+        //Menu for EvenOdd Features
+        public ConsoleKey MenuEvenOdd()
+        {
+            Console.WriteLine("========================================================");
+            Console.WriteLine("                   MENU GANJIL GENAP                    ");
+            Console.WriteLine("--------------------------------------------------------");
+            Console.WriteLine("1. Cek Ganjil Genap ");
+            Console.WriteLine("2. Print Ganjil Genap (dengan limit)");
+            Console.WriteLine("0. Exit");
+            Console.WriteLine("--------------------------------------------------------\n");
+            Console.Write("Select Menu : ");
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+            Console.WriteLine();
+            return keyInfo.Key;
+        }
     }
 }

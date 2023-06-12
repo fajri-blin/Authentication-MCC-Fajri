@@ -21,14 +21,14 @@ namespace Authentication
             Username = GenerateUsername(FirstName, LastName);
         }
 
-        private string GenerateUsername(string firstName, string lastName)
+        public virtual string GenerateUsername(string firstName, string lastName)
         {
             string username = (firstName.Length >= 2 ? firstName.Substring(0, 2) : firstName)
                               + (lastName.Length >= 2 ? lastName.Substring(0, 2) : lastName);
             return username.ToLower();
         }
 
-        public void EditUser(string newFirstName, string newLastName, string newPassword)
+        public virtual void EditUser(string newFirstName, string newLastName, string newPassword)
         {
             FirstName = newFirstName;
             LastName = newLastName;
@@ -36,13 +36,45 @@ namespace Authentication
             Username = GenerateUsername(newFirstName, newLastName);
         }
 
-        public void ShowUserDetail()
+        public virtual void ShowUserDetail()
         {
-            Console.WriteLine($"ID: {this.Id}");
-            Console.WriteLine($"First Name: {this.FirstName}");
-            Console.WriteLine($"Last Name: {this.LastName}");
-            Console.WriteLine($"Username: {this.Username}");
-            Console.WriteLine($"Password: {this.Password}");
+            Console.WriteLine($"ID: {Id}");
+            Console.WriteLine($"First Name: {FirstName}");
+            Console.WriteLine($"Last Name: {LastName}");
+            Console.WriteLine($"Username: {Username}");
+            Console.WriteLine($"Password: {Password}");
         }
+    }
+
+    public class Admin : User
+    {
+        public Admin(string firstname, string lastname, string password) : base(firstname, lastname, password)
+        {
+            // No need to reassign the properties from the base class, as they are already inherited
+        }
+
+        public Admin(string username, string password) : base(" "," ", password)
+        {
+            Username = username;
+        } 
+
+        public override string GenerateUsername(string firstName, string lastName)
+        {
+            string username = (firstName.Length >= 2 ? firstName.Substring(0, 2) : firstName)
+                              + (lastName.Length >= 2 ? lastName.Substring(0, 2) : lastName);
+            return username.ToLower();
+        }
+
+        public override void EditUser(string newFirstName, string newLastName, string newPassword)
+        {
+            base.EditUser(newFirstName, newLastName, newPassword);
+            Username = GenerateUsername(newFirstName, newLastName);
+        }
+
+        public override void ShowUserDetail()
+        {
+            base.ShowUserDetail();
+        }
+
     }
 }
